@@ -16,10 +16,10 @@ export async function getPostsByUserId(userId) {
 }
 
 export async function createPost(post) {
-  const { user_id, title, body } = post;
+  const { userId, title, body } = post;
   const [result] = await db.execute(
     'INSERT INTO Posts (user_id, title, body) VALUES (?, ?, ?)',
-    [user_id, title, body]
+    [userId, title, body]
   );
   return result.insertId;
 }

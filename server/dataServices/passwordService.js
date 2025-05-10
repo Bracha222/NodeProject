@@ -1,6 +1,6 @@
 import db from './DB.js';
-export const savePassword = async (user) => {
-    const { user_id,password } = user;
+import bcrypt from 'bcrypt';
+export const savePassword = async (user_id,password) => {
     
     try {
     const [result] = await db.query(
@@ -10,7 +10,7 @@ export const savePassword = async (user) => {
     
     return result.insertId;
     } catch (error) {
-     throw new Error('Error adding data');
+     throw new Error('Error adding password');
     }
     
     };

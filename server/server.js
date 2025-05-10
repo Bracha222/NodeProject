@@ -1,15 +1,17 @@
 import express from 'express';
 import cors from 'cors';
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
 import pool from './dataServices/DB.js';
 import postsRoutes from './routes/postsRoutes.js';
 import commentsRoutes from './routes/commentsRoutes.js';
 import todosRoutes from './routes/todosRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 
-
-const app = express();
-app.use(express.json());
-app.use(cors());
 
 // Route to test database connection
 app.get('/test-db', async (req, res) => {

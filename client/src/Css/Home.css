@@ -1,0 +1,190 @@
+
+html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+
+
+
+header {
+    background-color: #006064 ; 
+    color: white;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
+    padding: 10px 20px; 
+    position: fixed;
+    top: 0; 
+    left: 0; 
+    right: 0;
+    width: 100%; 
+    z-index: 1000;
+    box-sizing: border-box;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+} 
+
+
+/* עיצוב קישורים וכפתורים בכותרת */
+header a, header button {
+    text-decoration: none;
+    color: white;
+    background-color: #00838f;
+    border: none;
+    padding: 10px 15px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+header a:hover, header button:hover {
+    background-color: #005662  "
+}
+
+/* עיצוב הלוגין והברכה */
+header .welcome {
+    margin-left: auto;
+    margin-right: 20px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+/* עיצוב החלק השמאלי */
+.left-links {
+    display: flex;
+    flex-direction: row; /* כפתורים בשורה */
+    gap: 10px; /* רווח בין הכפתורים */
+    margin-left: 0; /* ביטול הרווח השמאלי */
+}
+
+/* עיצוב החלק הימני */
+.right-section {
+    display: flex;
+    flex-direction: row; /* כפתורים בשורה */
+    gap: 10px; /* רווח בין הפריטים */
+    margin-right: 0; /* ביטול הרווח הימני */
+}
+/* יישור לכפתורים בקצוות */
+.left-links button:first-child {
+    margin-left: 15px; /* רווח שמאלי עבור הכפתור הראשון */
+}
+
+.right-section button:last-child {
+    margin-right: 15px; /* רווח ימני עבור הכפתור האחרון */
+}
+
+
+.main_content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* align-items: center; */
+    text-align: center;
+    font-size: 24px;
+    color: #004d40 ;
+    margin-top: 80px;
+    padding: 20px;
+}
+
+
+
+/* עיצוב ה-Popup */
+.popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* רקע כהה */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* לוודא שה-Popup יהיה מעל כל תוכן אחר */
+}
+
+/* תוכן ה-Popup */
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    max-height: 80vh; /* מגביל את הגובה ל-80% מגובה החלון */
+    overflow-y: auto; /* מוסיף גלילה אנכית */
+    box-shadow: 0 2px 8px rgb(8, 177, 254);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+    position: relative;
+}
+
+/* עיצוב פס הגלילה */
+.popup-content::-webkit-scrollbar {
+    width: 10px; /* רוחב הפס */
+    background-color: #e0f7fa; /* רקע כללי לפס */
+}
+
+.popup-content::-webkit-scrollbar-thumb {
+    background-color: #00838f; /* צבע הידית */
+    border-radius: 10px; /* עיגול הידית */
+    border: 2px solid #e0f7fa ; /* גבול לידית */
+}
+
+.popup-content::-webkit-scrollbar-thumb:hover {
+    background-color: #005662 ; /* צבע הידית כשהעכבר מעל */
+}
+
+/* כפתור סגירה */
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    font-size: 18px; /* גודל ברור יותר */
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    background-color: #07407d ; /* צבע כחול */
+    color: #fff; /* צבע טקסט לבן */
+}
+
+/* כפתור סגירה בתוך ה-Popup */
+.popup .close-btn {
+    background-color: #f44336 ;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+}
+
+/* עיצוב כפתור ה-Logout */
+header button.logout {
+    margin-left: auto;
+}
+
+/* עיצוב עבור קישורים */
+header a {
+    display: inline-block;
+    text-align: center;
+}
+
+/* התאמה לגודל מסך */
+@media (max-width: 768px) {
+    header {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    header a, header button {
+        margin: 5px 0;
+    }
+}

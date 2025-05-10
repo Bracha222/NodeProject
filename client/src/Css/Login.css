@@ -1,0 +1,89 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f2f5;
+}
+
+.login-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+}
+
+form {
+    background-color: white;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    width: 340px;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* שדות קלט */
+input {
+    width: 100%;
+    padding: 14px;
+    margin: 12px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+input:focus {
+    border-color: #58bab7;
+    outline: none;
+    background-color: #ffffff;
+}
+
+
+button {
+    width: 100%;
+    padding: 14px;
+    background-color: #58bab7;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button:hover {
+    background-color: #37b0ac;
+    transform: translateY(-2px); 
+}
+
+/* הודעות שגיאה והצלחה */
+p {
+    font-size: 14px;
+    font-weight: 500;
+    margin-top: 10px;
+    letter-spacing: 0.5px;
+}
+
+.error {
+    color: #e74c3c;
+}
+
+.success {
+    color: #2ecc71; 
+}
+
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+form {
+    animation: fadeIn 1s ease-out;
+}
