@@ -10,7 +10,7 @@ export const addUser = async (user) => {
     
     return result.insertId;
     } catch (error) {
-     throw new Error('Error adding data');
+     throw new Error('Error adding info data');
     }
     
     };

@@ -17,10 +17,10 @@ export async function createTodo(req, res) {
 
 export async function updateTodo(req, res) {
   await updateTodoService(req.params.id, req.body);
-  res.sendStatus(204);
+  res.status(200).json({ success: true });
 }
 
 export async function deleteTodo(req, res) {
   await deleteTodoService(req.params.id);
-  res.sendStatus(204);
+  res.status(200).json({ success: true });
 }

@@ -9,6 +9,7 @@ import {
 
 export async function getAllPosts(req, res) {
   const posts = await fetchAllPosts();
+  console.log('all posts:', posts);
   res.json(posts);
 }
 

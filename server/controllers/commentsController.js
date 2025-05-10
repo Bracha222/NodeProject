@@ -16,11 +16,11 @@ export async function createComment(req, res) {
 
 export async function updateComment(req, res) {
   await updateCommentServer(req.params.id, req.body);
-  res.sendStatus(204);
+  res.status(200).json({ success: true });
 }
 
 export async function deleteComment(req, res) {
   await deleteCommentServer(req.params.id);
-  res.sendStatus(204);
+  res.status(200).json({ success: true });
 }
 

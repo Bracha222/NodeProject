@@ -1,0 +1,33 @@
+/* Container for the list */
+.todo-container {
+    display: flex; /* Enables flexbox */
+    flex-wrap: wrap; /* Allows items to wrap to the next row */
+    gap: 10px; /* Adds space between items */
+    justify-content: flex-start; /* Aligns items to the left */
+    top: 200px;
+}
+
+/* Individual list item styling */
+.todo-item {
+    background-color: #f0f0f0; /* Example background */
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: calc(33.333% - 10px); /* Adjust width to fit 3 items per row, considering gap */
+    box-sizing: border-box; /* Ensures padding and border are included in the width */
+}
+.todo-title {
+    font-size: 18px;
+    color: black;
+}
+
+.todo-title.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+.full-post-item {
+    background-color: #F9FBE7; /* Example background */
+    padding: 10px;
+    border: 1px solid #ccc;
+    width: calc(100% - 10px); /* Adjust width to fit 3 items per row, considering gap */
+}
+
