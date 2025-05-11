@@ -21,8 +21,13 @@ export default function Register() {
     e.preventDefault();
     try {
       const result = await addData("user/register", form);
+      console.log(result);
       if (result?.success !== false) {
-        saveCurrentUserInLS(form);
+         const id = result.userId;
+        saveCurrentUserInLS({
+                ...form,    // שם, טלפון, אימייל
+                id         // מזהה ייחודי מהשרת
+            });
         navigate("/home");
       } else {
         setError("Registration failed.");

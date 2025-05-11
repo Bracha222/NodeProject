@@ -14,15 +14,38 @@ export default function Todos() {
     const [searchCriteria, setSearchCriteria] = useState('title');
     const [searchValue, setSearchValue] = useState('');
 
+    // const fetchTodos = async () => {
+    //     const data = await getData(`todos/user/${userId}`);
+    //     setTodos(data);
+    //     setFilteredTodos(data);
+    // };
     const fetchTodos = async () => {
-        const data = await getData(`todos/user/${userId}`);
+
+        let url = `todos/user/${userId}`;
+        const params = [];
+
+        if (searchValue) {
+            params.push(`${searchCriteria}=${encodeURIComponent(searchValue)}`);
+        }
+
+        if (params.length > 0) {
+            url += '?' + params.join('&');
+        }
+        console.log("Final URL:", url);
+        const data = await getData(url);
         setTodos(data);
         setFilteredTodos(data);
     };
 
+
+    // useEffect(() => {
+    //     fetchTodos();
+    // }, []);
+
     useEffect(() => {
         fetchTodos();
-    }, []);
+    }, [searchValue, searchCriteria]);
+
 
     const addToDo = async () => {
         const newTodo = {
@@ -66,7 +89,6 @@ export default function Todos() {
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value);
-        filterTodos(e.target.value, searchCriteria);
     };
 
     const sortTodos = (criteria) => {
@@ -83,23 +105,7 @@ export default function Todos() {
         setFilteredTodos(sorted);
     };
 
-    const filterTodos = (value, criteria) => {
-        const filtered = todos.filter((todo) => {
-            if (criteria === 'id') {
-                return todo.id.toString().includes(value);
-            } else if (criteria === 'title') {
-                return todo.title.toLowerCase().includes(value.toLowerCase());
-            } else if (criteria === 'completed') {
-                return todo.completed.toString().includes(value.toLowerCase());
-            }
-            return false;
-        });
 
-        setFilteredTodos(filtered);
-        if (filtered.length === 0) {
-            alert("No results matching your search");
-        }
-    };
 
     return (
         <>
@@ -117,7 +123,7 @@ export default function Todos() {
                             <option value="random">Random</option>
                         </select>
                         <label>Search By:</label>
-                        <select onChange={(e) => setSearchCriteria(e.target.value)}>
+                        <select value={searchCriteria} onChange={(e) => setSearchCriteria(e.target.value)}>
                             <option value="id">ID</option>
                             <option value="title">Title</option>
                             <option value="completed">Completion Status</option>

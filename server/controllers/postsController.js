@@ -7,11 +7,36 @@ import {
   deletePost as removePost
 } from '../dataServices/postService.js';
 
+
 export async function getAllPosts(req, res) {
-  const posts = await fetchAllPosts();
-  console.log('all posts:', posts);
-  res.json(posts);
+    const { searchCriteria, searchValue } = req.query;
+
+    try {
+        const posts = await fetchAllPosts(searchCriteria, searchValue);
+        res.json(posts);
+    } catch (error) {
+        console.error("Error fetching posts:", error);
+        res.status(500).json({ message: "Failed to fetch posts" });
+    }
 }
+
+// export async function getAllPosts(req, res) {
+//     try {
+//         const { viewAll, userId, searchCriteria, searchValue } = req.query;
+
+//         const posts = await fetchAllPosts({ 
+//             viewAll: viewAll === 'true', 
+//             userId, 
+//             searchCriteria, 
+//             searchValue 
+//         });
+
+//         res.json(posts);
+//     } catch (err) {
+//         console.error("Error in getAllPosts:", err);
+//         res.status(500).json({ error: "Server error" });
+//     }
+// }
 
 export async function getPostById(req, res) {
   const post = await fetchPostById(req.params.id);

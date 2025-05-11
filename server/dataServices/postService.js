@@ -1,14 +1,45 @@
 import db from './DB.js'
 
-export async function getAllPosts() {
-  const [rows] = await db.execute('SELECT * FROM Posts');
-  return rows;
+// export async function getAllPosts() {
+//   console.log("im here");
+//   const [rows] = await db.execute('SELECT * FROM Posts');
+//   return rows;
+// }
+
+export async function getAllPosts(searchCriteria, searchValue) {
+    
+    let query = 'SELECT * FROM Posts';
+    let params = [];
+
+    if (searchCriteria && searchValue) {
+        if (searchCriteria === 'title') {
+            query += ' WHERE title LIKE ?';
+            params.push(`%${searchValue}%`);
+        } else if (searchCriteria === 'id') {
+            query += ' WHERE id = ?';
+            params.push(searchValue);
+        }
+    }
+
+    try {
+        const [rows] = await db.execute(query, params);
+        return rows;
+    } catch (err) {
+        console.error('Error executing query:', err);
+        throw err;
+    }
 }
+
+//     const [rows] = await db.execute(query, params);
+//     return rows;
+// }
 
 export async function getPostById(id) {
   const [rows] = await db.execute('SELECT * FROM Posts WHERE id = ?', [id]);
   return rows[0];
 }
+
+
 
 export async function getPostsByUserId(userId) {
   const [rows] = await db.execute('SELECT * FROM Posts WHERE user_id = ?', [userId]);

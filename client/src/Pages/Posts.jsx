@@ -22,10 +22,22 @@ export default function Posts() {
         setPosts(data);
     };
 
-    const fetchAllPosts = async () => {
-        const data = await getData(`posts/all`);
-        setPosts(data);
-    };
+    // const fetchAllPosts = async () => {
+    //     const data = await getData(`posts/all`);
+    //     setPosts(data);
+    // };
+  const fetchAllPosts = async () => {
+  let url = `posts/all`;
+
+  if (searchCriteria && searchValue) {
+    url += `?searchCriteria=${encodeURIComponent(searchCriteria)}&searchValue=${encodeURIComponent(searchValue)}`;
+  }
+  const data = await getData(url);
+  setPosts(data);
+};
+
+
+
 
     useEffect(() => {
         if (isViewingAllPosts) {
@@ -80,10 +92,10 @@ export default function Posts() {
         <>
             <h1>{isViewingAllPosts ? "All Posts" : "My Posts"}</h1>
 
-            {!isViewingAllPosts && (
-                <div>
+            {(<div>
+              {isViewingAllPosts&&  <div>
                     <label>Search By:</label>
-                    <select onChange={(e) => setSearchCriteria(e.target.value)}>
+                    <select onChange={(e) => setSearchCriteria(e.target.value)} value={searchCriteria}>
                         <option value="title">Title</option>
                         <option value="id">ID</option>
                     </select>
@@ -93,9 +105,13 @@ export default function Posts() {
                         onChange={(e) => setSearchValue(e.target.value)}
                         placeholder={`Search by ${searchCriteria}...`}
                     />
-                    <button onClick={() => setIsAddVisible(!isAddVisible)}>Add Post</button>
-                </div>
-            )}
+                      </div>}
+                    {!isViewingAllPosts && (
+                        <button onClick={() => setIsAddVisible(!isAddVisible)}>Add Post</button>
+                    )}
+              </div>
+
+         )}
             <button onClick={toggleViewMode}>
                 {isViewingAllPosts ? "See My Posts" : "See All Posts"}
             </button>
