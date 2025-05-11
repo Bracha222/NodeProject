@@ -29,7 +29,7 @@ export default function Login({setCurrentUser}) {
 
         try {
             const result = await addData("user/login", { email, password });
-            console.log("my user", result);
+           
 
             if (result && result.success && result.user) {
                 console.log("made it!!");
@@ -47,7 +47,7 @@ export default function Login({setCurrentUser}) {
             }
         } catch (err) {
             console.error(err);
-            setErrorMessage("Login failed");
+            setErrorMessage(err.message);
         }
     }
     return (
