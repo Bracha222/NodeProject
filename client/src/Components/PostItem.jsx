@@ -66,21 +66,30 @@ export default function PostItem({ post, onDelete, onUpdate }) {
     };
 
     const handleEditClick = () => {
+        setNewTitle(post.title);
+        setBody(post.body);
         setIsEditing(true);
     };
 
     const handleSaveClick = () => {
-        if (newTitle === '' && body === '') {
+        const updatedPost = {
+            ...post,
+            title: newTitle,
+            body: body
+        };
+
+        if (newTitle === '' || body === '') {
             alert('Title & body cannot be empty!');
-            setBody(post.body);
-            setNewTitle(post.title);
-        } else if (newTitle === post.title && body === post.body) {
-            alert('No changes were made!');
-        } else {
-            // עדכון הפוסט אם יש שינוי
-            body !== post.body && onUpdate(post.id, body);
-            newTitle !== post.title && onUpdate(post.id, newTitle);
+            return;
         }
+
+        if (newTitle === post.title && body === post.body) {
+            alert('No changes were made!');
+            setIsEditing(false);
+            return;
+        }
+
+        onUpdate(updatedPost); // שולחת את הפוסט המעודכן להורה
         setIsEditing(false);
     };
 
@@ -107,6 +116,7 @@ export default function PostItem({ post, onDelete, onUpdate }) {
         setNewCommentEmail('');
         setNewCommentContent('');
     }
+    console.log("post:", post);
 
     return (
         <>
@@ -119,7 +129,7 @@ export default function PostItem({ post, onDelete, onUpdate }) {
                             value={newTitle}
                             onChange={(e) => setNewTitle(e.target.value)}
                         />
-                        {viewStatus === 'Hide' && (
+                        {(viewStatus === 'Hide' || isEditing) && (
                             <input
                                 type="text"
                                 value={body}
@@ -132,13 +142,13 @@ export default function PostItem({ post, onDelete, onUpdate }) {
                 ) : (
                     <>
                         <h3>{post.title}</h3>
-                        <p>{body}</p>
-                        {post.userId === userId ? (
+                        <p>{viewStatus === 'Hide' ? body : ''}</p>
+                        {post.user_id === userId ? (
                             <button onClick={handleEditClick}>Update</button>
                         ) : null}
                     </>
                 )}
-                {post.userId === userId ? (
+                {post.user_id === userId ? (
                     <button onClick={() => onDelete(post.id, post.userId)}>Delete</button>)
                     : null}
                 <button onClick={handleViewClick}>{viewStatus} full post</button>

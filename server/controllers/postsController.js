@@ -4,7 +4,7 @@ import {
   getPostsByUserId,
   createPost as addPost,
   updatePost as modifyPost,
-  deletePost as removePost
+  deletePostWithComments
 } from '../dataServices/postService.js';
 
 
@@ -55,10 +55,23 @@ export async function createPost(req, res) {
 
 export async function updatePost(req, res) {
   await modifyPost(req.params.id, req.body);
-  res.sendStatus(204);
+  res.status(200).json({ message: "Post updated" });
 }
 
-export async function deletePost(req, res) {
-  await removePost(req.params.id);
-  res.sendStatus(204);
-}
+// export async function deletePostAndComments(req, res) {
+//   await removePost(req.params.id);
+//   res.sendStatus(204);
+// }
+
+export const deletePost = async (req, res) => {
+  const { id } = req.params;
+  console.log("this post id", id);
+  try {
+    console.log("post id in try", id);
+    await deletePostWithComments(id);
+    res.status(200).json({ message: "Post deleted" });
+  } catch (err) {
+    console.error('Error deleting post and comments:', err);
+    res.status(500).send('Failed to delete post and its comments');
+  }
+};
