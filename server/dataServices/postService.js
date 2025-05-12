@@ -60,7 +60,11 @@ export async function updatePost(id, post) {
   await db.execute('UPDATE Posts SET title = ?, body = ? WHERE id = ?', [title, body, id]);
 }
 
-export async function deletePost(id) {
-  await db.execute('DELETE FROM Posts WHERE id = ?', [id]);
+export async function deletePostWithComments(postId) {
+  await db.execute('DELETE FROM comments WHERE post_id = ?', [postId]);
+  await db.execute('DELETE FROM Posts WHERE id = ?', [postId]);
 }
+
+
+
 

@@ -26,15 +26,15 @@ export default function Posts() {
     //     const data = await getData(`posts/all`);
     //     setPosts(data);
     // };
-  const fetchAllPosts = async () => {
-  let url = `posts/all`;
+    const fetchAllPosts = async () => {
+        let url = `posts/all`;
 
-  if (searchCriteria && searchValue) {
-    url += `?searchCriteria=${encodeURIComponent(searchCriteria)}&searchValue=${encodeURIComponent(searchValue)}`;
-  }
-  const data = await getData(url);
-  setPosts(data);
-};
+        if (searchCriteria && searchValue) {
+            url += `?searchCriteria=${encodeURIComponent(searchCriteria)}&searchValue=${encodeURIComponent(searchValue)}`;
+        }
+        const data = await getData(url);
+        setPosts(data);
+    };
 
 
 
@@ -76,15 +76,21 @@ export default function Posts() {
         }
     };
 
-    const handleUpdate = async (post) => {
-        const updated = { ...post, title: prompt("New title:", post.title) };
-        if (updated.title) {
-            await updateData(`posts/update/${post.id}`, updated);
+
+    const handleUpdate = async (updatedPost) => {
+        try {
+            await updateData(`posts/update/${updatedPost.id}`, {
+                title: updatedPost.title,
+                body: updatedPost.body,
+            });
+
             if (isViewingAllPosts) {
                 fetchAllPosts();
             } else {
                 fetchPosts();
             }
+        } catch (err) {
+            console.error("Update failed:", err);
         }
     };
 
@@ -93,7 +99,7 @@ export default function Posts() {
             <h1>{isViewingAllPosts ? "All Posts" : "My Posts"}</h1>
 
             {(<div>
-              {isViewingAllPosts&&  <div>
+                {isViewingAllPosts && <div>
                     <label>Search By:</label>
                     <select onChange={(e) => setSearchCriteria(e.target.value)} value={searchCriteria}>
                         <option value="title">Title</option>
@@ -105,13 +111,13 @@ export default function Posts() {
                         onChange={(e) => setSearchValue(e.target.value)}
                         placeholder={`Search by ${searchCriteria}...`}
                     />
-                      </div>}
-                    {!isViewingAllPosts && (
-                        <button onClick={() => setIsAddVisible(!isAddVisible)}>Add Post</button>
-                    )}
-              </div>
+                </div>}
+                {!isViewingAllPosts && (
+                    <button onClick={() => setIsAddVisible(!isAddVisible)}>Add Post</button>
+                )}
+            </div>
 
-         )}
+            )}
             <button onClick={toggleViewMode}>
                 {isViewingAllPosts ? "See My Posts" : "See All Posts"}
             </button>
